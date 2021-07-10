@@ -24,6 +24,7 @@ __pycache__/
 *.so
 *~
 .venv
+.coverage
 
 # due to using tox and pytest
 .tox
