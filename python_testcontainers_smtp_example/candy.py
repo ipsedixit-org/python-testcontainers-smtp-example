@@ -24,6 +24,7 @@ class Dashboard:
     I choose dashboard name because it is a pretty common name for this purpose.
     In this case dashboard send an email in case there is no more candy.
     """
+
     def __init__(self, conf_email: ConfEmail) -> None:
         self.__allarms = []
         self.__conf_email = conf_email
@@ -54,6 +55,7 @@ class CandyBox:
     So expose API to eat one (someone get one and eat it), and also notify
     dashboard in case that there is no more candy.
     """
+
     def __init__(self, dashboard: Dashboard, number_candy: int) -> None:
         self.__dashboard = dashboard
         self.__number_candy = number_candy
