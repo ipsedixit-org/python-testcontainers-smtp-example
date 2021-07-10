@@ -87,7 +87,10 @@ class SMTPMatchContains:
         self._matching_value = matching_value
 
     def to_dict(self):
-        return {"operator": "contains", "matchingValue": self._matching_value}
+        return {
+            "operator": "contains",
+            "matchingValue": self._matching_value,
+        }
 
 
 @dataclass
@@ -105,12 +108,23 @@ class MockSmtp:
         def check_conn(conn_type: str, port: int):
             s = socket.socket()
             try:
-                logger.debug("Check Mock SMTP container conn_type: %s - conf: %s", conn_type, self.__conf)
+                logger.debug(
+                    "Check Mock SMTP container conn_type: %s - conf: %s",
+                    conn_type,
+                    self.__conf,
+                )
                 s.connect((self.__conf.host, port))
-                logger.info("Mock SMTP container conn_type: %s is ready", conn_type)
+                logger.info(
+                    "Mock SMTP container conn_type: %s is ready",
+                    conn_type,
+                )
                 return True
             except Exception as e:
-                logger.info("Mock SMTP container conn_type: %s is not ready yet - e: %s", conn_type, str(e))
+                logger.info(
+                    "Mock SMTP container conn_type: %s is not ready yet - e: %s",
+                    conn_type,
+                    str(e),
+                )
                 return False
             finally:
                 s.close()
@@ -127,7 +141,12 @@ class MockSmtp:
         def clean_up_single_end_point(request_type, url):
             logger.debug("Try to delete %s ", request_type)
             r = requests.delete(url, timeout=TIMEOUT_API_SECONDS)
-            logger.debug("Delete %s - response code: %s - text: %s", request_type, r.status_code, r.text)
+            logger.debug(
+                "Delete %s - response code: %s - text: %s",
+                request_type,
+                r.status_code,
+                r.text,
+            )
             if r.status_code != STATUS_CODE_NO_CONTENT:
                 raise Exception("An error occurred in clean up {}".format(request_type))
 
@@ -137,7 +156,10 @@ class MockSmtp:
     def _get_mail(self, response) -> Mail:
         to_addrs = [recipient["address"] for recipient in response["recipients"]]
 
-        grouped = re.search(r"Received:([^;]+);\r\n([^\r]+)\r\nSubject:([^\r]+)\r\n\r\n(.+)\r$", response["message"])
+        grouped = re.search(
+            r"Received:([^;]+);\r\n([^\r]+)\r\nSubject:([^\r]+)\r\n\r\n(.+)\r$",
+            response["message"],
+        )
         if grouped is None:
             raise Exception("An error occurred in split in groups mail string {}".format(response["message"]))
 
@@ -156,7 +178,11 @@ class MockSmtp:
     def get_mails(self) -> list[Mail]:
         logger.debug("Try to retrieve all mails")
         response = requests.get(self._mail_url(), timeout=TIMEOUT_API_SECONDS)
-        logger.debug("Get all mails - response code: %s - text: %s", response.status_code, response.text)
+        logger.debug(
+            "Get all mails - response code: %s - text: %s",
+            response.status_code,
+            response.text,
+        )
         if response.status_code != STATUS_CODE_OK:
             raise Exception("An error occurred in get all mails")
 
@@ -171,7 +197,10 @@ class MockSmtp:
                 {
                     "command": behaviour.command.value,
                     "condition": behaviour.condition.to_dict(),
-                    "response": {"code": behaviour.response.value, "message": "Fake server error"},
+                    "response": {
+                        "code": behaviour.response.value,
+                        "message": "Fake server error",
+                    },
                 }
             )
 
@@ -180,8 +209,15 @@ class MockSmtp:
 
         headers = {"Content-Type": "application/json"}
         response = requests.put(
-            self._behaviors_url(), data=json.dumps(data), headers=headers, timeout=TIMEOUT_API_SECONDS
+            self._behaviors_url(),
+            data=json.dumps(data),
+            headers=headers,
+            timeout=TIMEOUT_API_SECONDS,
         )
-        logger.debug("Set behaviour - response code: %s - text: %s", response.status_code, response.text)
+        logger.debug(
+            "Set behaviour - response code: %s - text: %s",
+            response.status_code,
+            response.text,
+        )
         if response.status_code != STATUS_CODE_NO_CONTENT:
             raise Exception("An error occurred in set behaviours")

@@ -1,7 +1,6 @@
 import pytest
 
-from python_testcontainers_smtp_example.candy import (ALARM_CANDY, CandyBox,
-                                                      ConfEmail, Dashboard)
+from python_testcontainers_smtp_example.candy import ALARM_CANDY, CandyBox, ConfEmail, Dashboard
 
 
 @pytest.fixture(scope="function")

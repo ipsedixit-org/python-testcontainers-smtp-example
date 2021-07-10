@@ -5,11 +5,16 @@ import time
 import pytest
 from testcontainers.compose import DockerCompose
 
-from python_testcontainers_smtp_example.candy import (CandyBox, ConfEmail,
-                                                      Dashboard)
-from tests_integration.mock_smtp import (Mail, MockSmtp, MockSmtpConf,
-                                         SMTPBehaviour, SMTPCommand,
-                                         SMTPMatchContains, SMTPStatusCode)
+from python_testcontainers_smtp_example.candy import CandyBox, ConfEmail, Dashboard
+from tests_integration.mock_smtp import (
+    Mail,
+    MockSmtp,
+    MockSmtpConf,
+    SMTPBehaviour,
+    SMTPCommand,
+    SMTPMatchContains,
+    SMTPStatusCode,
+)
 
 MAIL_SERVER_HOST = "mock-smtp"
 MAIL_SERVER_SMTP_PORT = 25
