@@ -2,4 +2,4 @@ py39:
   image: python:3.9
   script:
   - pip install tox==3.23.1
-  - tox -e lint,tests,pep8
+  - tox -e tests,pep8

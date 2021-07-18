@@ -15,4 +15,4 @@ pep8:
 	flake8 python_testcontainers_smtp_example tests tests_integration
 
 tox:
-	tox -e lint,tests,pep8
+	tox -e tests,pep8
