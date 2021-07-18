@@ -11,7 +11,7 @@ For smtp server is used a (James Mock server)[https://medium.com/linagora-engine
 __**Note:**__ This project has used as a base (pypa sample project)[https://github.com/pypa/sampleproject].
 
 ## Initial setup
-Create virtualenv using make command
+Create virtualenv with all dependencies using make command:
 ```bash
 make setup
 ```
